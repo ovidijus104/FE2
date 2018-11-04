@@ -21,6 +21,7 @@ export default class Card extends React.Component {
   render() {
     const {
       movie: {
+        id,
         backdrop_path,
         original_title,
         overview,
@@ -28,11 +29,13 @@ export default class Card extends React.Component {
         vote_average,
         vote_count,
       },
+      likeIds,
+      handleLikeClick
     } = this.props;
     const { opened } = this.state;
 
     return (
-      <div className="card">
+      <div className="card" key={id}>
         <div
           className="card__image"
           style={{ backgroundImage: `url(${getImageUrl(backdrop_path)})` }}
@@ -43,7 +46,7 @@ export default class Card extends React.Component {
         </div>
 
         <div className="card__like">
-          <i className="fa fa-heart-o" />
+          <i className={likeIds.indexOf(id) > -1 ? "fa fa-heart" : "fa fa-heart-o"} onClick={() => handleLikeClick(id)} />
         </div>
 
         <div className="card__subtitle">
